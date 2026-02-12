@@ -1,0 +1,32 @@
+
+# -------------------------------
+# 1️⃣ Login Command
+# -------------------------------
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d "{\"email\":\"niteshshivharecreate14@gmail.com\",\"password\":\"password123\"}"
+
+# Output:
+{"message":"OTP sent","loginSessionId":"siq6s9","otp":511404}
+
+# -------------------------------
+# 2️⃣ Verify OTP Command
+# -------------------------------
+curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp -H "Content-Type: application/json" -d "{\"loginSessionId\":\"siq6s9\",\"otp\":\"511404\"}"
+
+# Output:
+{"message":"OTP verified","sessionId":"siq6s9"}
+
+# -------------------------------
+# 3️⃣ Get Token Command
+# -------------------------------
+curl -b cookies.txt -X POST http://localhost:3000/auth/token
+
+# Output:
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pdGVzaHNoaXZoYXJlY3JlYXRlMTRAZ21haWwuY29tIiwic2Vzc2lvbklkIjoic2lxNnM5IiwiaWF0IjoxNzcwODc3MTczLCJleHAiOjE3NzA4NzgwNzN9.ADHJaufww7f_xSAprPPIZwcwm1N1Eh7mqehlan8vA9w","expires_in":900}
+
+# -------------------------------
+# 4️⃣ Protected Route Command
+# -------------------------------
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pdGVzaHNoaXZoYXJlY3JlYXRlMTRAZ21haWwuY29tIiwic2Vzc2lvbklkIjoic2lxNnM5IiwiaWF0IjoxNzcwODc3MTczLCJleHAiOjE3NzA4NzgwNzN9.ADHJaufww7f_xSAprPPIZwcwm1N1Eh7mqehlan8vA9w" http://localhost:3000/protected
+
+# Output:
+{"message":"Access granted","user":{"email":"niteshshivharecreate14@gmail.com","sessionId":"siq6s9","iat":1770877173,"exp":1770878073},"success_flag":"FLAG-bml0ZXNoc2hpdmhhcmVjcmVhdGUxNEBnbWFpbC5jb21fQ09NUExFVEVEX0FTU0lHTk1FTlQ="}
